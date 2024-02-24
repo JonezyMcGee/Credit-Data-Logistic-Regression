@@ -109,10 +109,10 @@ cost <- function(train, test, threshold, expression){
     if (response[i] == 1 & glm_results[i] == 1){
       conf_matrix[1,1] = conf_matrix[1,1] + 1
     }
-    else if (response[i] == 0 & glm_results[i] == 1){
+    else if (response[i] == 1 & glm_results[i] == 0){
       conf_matrix[1,2] = conf_matrix[1,2] + 1
     }
-    else if (response[i] == 1 & glm_results[i] == 0){
+    else if (response[i] == 0 & glm_results[i] == 1){
       conf_matrix[2,1] = conf_matrix[2,1] + 1
     }
     else if (response[i] == 0 & glm_results[i] == 0){
@@ -177,10 +177,10 @@ for (i in 1:length(response)){
   if (response[i] == 1 & glm_results[i] == 1){
     conf_matrix[1,1] = conf_matrix[1,1] + 1
   }
-  else if (response[i] == 0 & glm_results[i] == 1){
+  else if (response[i] == 1 & glm_results[i] == 0){
     conf_matrix[1,2] = conf_matrix[1,2] + 1
   }
-  else if (response[i] == 1 & glm_results[i] == 0){
+  else if (response[i] == 0 & glm_results[i] == 1){
     conf_matrix[2,1] = conf_matrix[2,1] + 1
   }
   else if (response[i] == 0 & glm_results[i] == 0){
@@ -226,7 +226,7 @@ for (i in 1:length(thresholds2)){
 costs2
 #We can get the costs down to 111 with these predictors.
 
-min_costs2 <- which(costs2==111, arr.ind=TRUE)
+min_costs2 <- which(costs2==47, arr.ind=TRUE)
 min_thresholds2 <- thresholds2[min_costs2]
 #Choose between 0.26 and 0.28. We will choose 0.26 to be safe.
 
@@ -237,7 +237,7 @@ glm2_pred <- predict(glm2, testing_data[,-25])
 glm2_pred_prob <- exp(glm2_pred) / (1 + exp(glm2_pred))
 
 #Converting Results into 0s and 1s based on threshold.
-greater2 <- which(glm2_pred_prob > 0.26, arr.ind=TRUE)
+greater2 <- which(glm2_pred_prob > 0.87, arr.ind=TRUE)
 glm2_results <- as.vector(glm2_pred_prob)
 glm2_results[greater2] <- 1
 glm2_results[-greater2] <- 0
@@ -255,10 +255,10 @@ for (i in 1:length(response2)){
   if (response2[i] == 1 & glm2_results[i] == 1){
     conf_matrix2[1,1] = conf_matrix2[1,1] + 1
   }
-  else if (response2[i] == 0 & glm2_results[i] == 1){
+  else if (response2[i] == 1 & glm2_results[i] == 0){
     conf_matrix2[1,2] = conf_matrix2[1,2] + 1
   }
-  else if (response2[i] == 1 & glm2_results[i] == 0){
+  else if (response2[i] == 0 & glm2_results[i] == 1){
     conf_matrix2[2,1] = conf_matrix2[2,1] + 1
   }
   else if (response2[i] == 0 & glm2_results[i] == 0){
