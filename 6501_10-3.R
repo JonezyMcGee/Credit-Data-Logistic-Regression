@@ -140,7 +140,7 @@ for (i in 1:length(thresholds)){
 }
 
 costs
-min_costs <- which(costs==113, arr.ind=TRUE)
+min_costs <- which(costs==42, arr.ind=TRUE)
 min_thresholds <- thresholds[min_costs]
 
 #Can choose between 0.17, 0.24, and 0.25. 0.25 seems quite square
@@ -159,7 +159,7 @@ glm_pred <- predict(glm1, testing_data[,-25])
 glm_pred_prob <- exp(glm_pred) / (1 + exp(glm_pred))
 
 #Converting Results into 0s and 1s based on threshold.
-greater <- which(glm_pred_prob > 0.25, arr.ind=TRUE)
+greater <- which(glm_pred_prob > 0.81, arr.ind=TRUE)
 glm_results <- as.vector(glm_pred_prob)
 glm_results[greater] <- 1
 glm_results[-greater] <- 0
@@ -276,3 +276,5 @@ cost2
 accuracy2 <- (conf_matrix2[1,1] + conf_matrix2[2,2]) / length(response2)
 accuracy2
 
+#The first model with all predictors is demonstrably better when it comes to 
+#both cost and accuracy,
